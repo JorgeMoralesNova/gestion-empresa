@@ -12,21 +12,21 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        // Permitir el acceso a /registro, /login y recursos estáticos sin autenticación
-                        .requestMatchers("/login", "/resources/**").permitAll()
+                        // Permitir el acceso a /registro, /login, /menu y recursos estáticos sin autenticación
+                        .requestMatchers("/login", "/resources/**", "/menu").permitAll()
                         .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")  // Página personalizada de login
+                        .defaultSuccessUrl("/menu", true)  // Redirigir a /menu después de un login exitoso
                         .permitAll()
                 )
                 .logout((logout) -> logout
-                        .logoutUrl("/logout")  // Redirige a /logout cuando se cierra sesión
+                        .logoutUrl("/logout")  // URL para cerrar sesión
                         .logoutSuccessUrl("/login?logout")  // Redirige al login después de logout
                         .permitAll()
                 );
 
         return http.build();
     }
-
 }
