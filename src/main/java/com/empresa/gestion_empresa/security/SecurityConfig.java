@@ -13,12 +13,12 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         // Permitir el acceso a /registro, /login, /menu y recursos estáticos sin autenticación
-                        .requestMatchers("/login", "/resources/**", "/menu").permitAll()
+                        .requestMatchers("/login", "/resources/**").permitAll()
                         .anyRequest().authenticated() // Todas las demás rutas requieren autenticación
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")  // Página personalizada de login
-                        .defaultSuccessUrl("/menu", true)  // Redirigir a /menu después de un login exitoso
+                        .defaultSuccessUrl("/home", true)  // Redirigir a /menu después de un login exitoso
                         .permitAll()
                 )
                 .logout((logout) -> logout
