@@ -37,4 +37,6 @@ public class ProductoService {
     public List<Producto> obtenerProductosConStockBajo(Integer stock) {
         return productoRepository.findByStockLessThan(stock);
     }
+
+
 }
