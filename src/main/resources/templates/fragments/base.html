@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Gestión Empresarial</title>
+</head>
+<body>
+<!-- Incluir el header -->
+<div th:replace="fragments/header :: header"></div>
+
+<!-- Contenido principal -->
+<div class="content">
+  <div th:insert="${content}"></div> <!-- contenido específico de cada página -->
+</div>
+
+<!-- Incluir el footer -->
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

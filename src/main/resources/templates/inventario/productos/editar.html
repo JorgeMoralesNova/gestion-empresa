@@ -7,7 +7,7 @@
 <body>
 <div class="container">
     <h1 class="mt-4">Editar Producto</h1>
-    <form action="#" th:action="@{/productos/actualizar/{id}(id=${producto.id})}" th:object="${producto}" method="post">
+    <form action="#" th:action="@{/inventario/productos/actualizar/{id}(id=${producto.id})}" th:object="${producto}" method="post">
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" id="nombre" th:field="*{nombre}" class="form-control">

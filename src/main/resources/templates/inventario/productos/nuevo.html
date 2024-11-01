@@ -7,7 +7,7 @@
 <body>
 <div class="container">
   <h1 class="mt-4">Agregar Nuevo Producto</h1>
-  <form action="#" th:action="@{/productos/guardar}" th:object="${producto}" method="post">
+  <form action="#" th:action="@{/inventario/productos/guardar}" th:object="${producto}" method="post">
     <div class="mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" id="nombre" th:field="*{nombre}" class="form-control" placeholder="Ingrese el nombre">
@@ -21,6 +21,7 @@
       <input type="number" id="stock" th:field="*{stock}" class="form-control" placeholder="Ingrese el stock">
     </div>
     <button type="submit" class="btn btn-success">Guardar Producto</button>
+    <a class="btn btn-secondary" th:href="@{/inventario/proveedores}">Cancelar</a>
   </form>
 </div>
 </body>

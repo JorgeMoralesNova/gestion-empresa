@@ -23,8 +23,8 @@
       <td th:text="${proveedor.nombre}"></td>
       <td th:text="${proveedor.contacto}"></td>
       <td>
-        <a th:href="@{/proveedores/editar/{id}(id=${proveedor.id})}" class="btn btn-primary">Editar</a>
-        <a th:href="@{/proveedores/eliminar/{id}(id=${proveedor.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este proveedor?')">Eliminar</a>
+        <a th:href="@{/inventario/proveedores/editar/{id}(id=${proveedor.id})}" class="btn btn-primary">Editar</a>
+        <a th:href="@{/inventario/proveedores/eliminar/{id}(id=${proveedor.id})}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este proveedor?')">Eliminar</a>
       </td>
     </tr>
     </tbody>

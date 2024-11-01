@@ -25,8 +25,8 @@
             <td th:text="${producto.precio}"></td>
             <td th:text="${producto.stock}"></td>
             <td>
-                <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-primary">Editar</a>
-                <a th:href="@{/productos/eliminar/{id}(id=${producto.id})}" class="btn btn-danger">Eliminar</a>
+                <a th:href="@{/inventario/productos/editar/{id}(id=${producto.id})}" class="btn btn-primary">Editar</a>
+                <a th:href="@{/inventario/productos/eliminar/{id}(id=${producto.id})}" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
         </tbody>
