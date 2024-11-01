@@ -8,25 +8,50 @@
         flex-direction: column;
     }
 
-    /* Estilo para el contenedor de contenido */
+    /* Asegura que el contenido ocupe el espacio disponible */
     .content {
         flex: 1;
     }
 
-    /* Estilo para el footer fijo */
+    /* Estilos del footer fijo */
     footer {
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #1E3C72, #2A5298);
+        color: #f9f9f9;
         text-align: center;
-        padding: 10px 0;
+        padding: 15px 0;
+        width: 100%;
+        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.3);
         position: fixed;
         bottom: 0;
-        width: 100%;
+        font-family: 'Roboto', sans-serif;
+        z-index: 10;
+        backdrop-filter: blur(8px);
+    }
+
+    /* Estilo del texto del footer */
+    footer .footer-text {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #dcdcdc;
+    }
+
+    /* Estilo del enlace en el footer */
+    footer .footer-text a {
+        color: #FFD700;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    footer .footer-text a:hover {
+        color: #FF8C00;
     }
   </style>
 
-  <footer class="bg-light text-center text-lg-start mt-auto">
-    <div class="text-center p-3">
-      © 2024 Gestión Empresarial. Todos los derechos reservados.
+  <footer>
+    <div class="footer-text p-3">
+      © 2024 Gestión Empresarial. Todos los derechos reservados. |
+      <a href="/privacy-policy">Política de Privacidad</a> |
+      <a href="/terms">Términos de Servicio</a>
     </div>
   </footer>
 </div>
