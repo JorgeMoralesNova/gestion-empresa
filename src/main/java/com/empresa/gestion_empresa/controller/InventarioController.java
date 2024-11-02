@@ -10,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/inventario")
@@ -23,11 +26,33 @@ public class InventarioController {
 
     // ====================== PRODUCTOS ======================
 
+
+
     @GetMapping("/productos")
-    public String listarProductos(Model model) {
-        model.addAttribute("productos", productoService.obtenerTodosLosProductos());
+    public String listarProductos(
+            @RequestParam(defaultValue = "") String terminoBusqueda,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size,
+            Model model) {
+
+        Page<Producto> paginaDeProductos = productoService.obtenerProductosPaginados(terminoBusqueda, page, size);
+
+        model.addAttribute("productos", paginaDeProductos.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", paginaDeProductos.getTotalPages());
+        model.addAttribute("terminoBusqueda", terminoBusqueda); // Añade el término de búsqueda al modelo para la vista
+
         return "inventario/productos/lista";
+
     }
+
+    // Endpoint para sugerencias de productos
+    @GetMapping("/productos/sugerencias")
+    @ResponseBody
+    public List<String> obtenerSugerencias(@RequestParam("term") String term) {
+        return productoService.obtenerSugerenciasPorNombre(term);
+    }
+
 
     @GetMapping("/productos/nuevo")
     public String mostrarFormularioDeNuevoProducto(Model model) {

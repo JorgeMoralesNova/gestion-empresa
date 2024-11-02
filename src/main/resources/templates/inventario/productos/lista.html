@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,6 +34,7 @@
             text-align: center;
         }
 
+        /* Botón de agregar y acciones */
         .btn-primary {
             background: linear-gradient(135deg, #6A89CC, #4A69BD);
             border: none;
@@ -50,15 +50,6 @@
             background: linear-gradient(135deg, #4A69BD, #1E3799);
         }
 
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        .table thead th {
-            color: #AAB7B8;
-            font-weight: bold;
-        }
-
         .btn-danger {
             background-color: #E74C3C;
             border: none;
@@ -70,9 +61,43 @@
             background-color: #C0392B;
         }
 
+        /* Estilo de la tabla */
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .table thead th {
+            color: #AAB7B8;
+            font-weight: bold;
+        }
+
+        /* Barra de búsqueda y sugerencias */
+        .suggestions {
+            position: absolute;
+            background: white;
+            color: black;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        .suggestions li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestions li:hover {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
-
 <body>
 <!-- Menú de navegación -->
 <div th:replace="fragments/header :: header"></div>
@@ -82,6 +107,17 @@
     <h1 class="mt-4"><i class="fas fa-box-open"></i> Lista de Productos</h1>
     <a href="/inventario/productos/nuevo" class="btn btn-primary mb-4"><i class="fas fa-plus-circle"></i> Agregar Nuevo Producto</a>
 
+    <!-- Barra de búsqueda -->
+    <form class="mb-4 position-relative">
+        <div class="input-group">
+            <input type="text" id="terminoBusqueda" placeholder="Buscar producto..." class="form-control">
+            <button class="btn btn-primary" type="button" onclick="buscarProductos()"><i class="fas fa-search"></i> Buscar</button>
+            <a th:href="@{/inventario/productos}" class="btn btn-secondary ms-2">Volver</a>
+        </div>
+        <ul id="suggestions" class="suggestions" style="display:none;"></ul>
+    </form>
+
+    <!-- Tabla de productos -->
     <table class="table table-striped table-hover text-white">
         <thead>
         <tr>
@@ -92,7 +128,7 @@
             <th>Acciones</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="productTableBody">
         <tr th:each="producto : ${productos}">
             <td th:text="${producto.id}"></td>
             <td th:text="${producto.nombre}"></td>
@@ -115,6 +151,26 @@
 <div th:replace="fragments/footer :: footer"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+<script>
+    // Función para búsqueda de productos en tiempo real
+    document.getElementById("terminoBusqueda").addEventListener("input", function() {
+        buscarProductos();
+    });
 
+    function buscarProductos() {
+        const term = document.getElementById("terminoBusqueda").value;
+        if (term.length > 0) {
+            fetch(`/inventario/productos?terminoBusqueda=${term}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("productTableBody").innerHTML = new DOMParser()
+                        .parseFromString(html, "text/html")
+                        .querySelector("#productTableBody").innerHTML;
+                });
+        } else {
+            document.getElementById("productTableBody").innerHTML = ""; // Opcional: Muestra todos los productos si el campo está vacío
+        }
+    }
+</script>
+</body>
 </html>
